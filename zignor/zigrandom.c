@@ -254,10 +254,10 @@ return (double)u1;
 /*------------------------------ DRanQuanNormal -----------------------------*/
 static double dProbN(double x, int fUpper)
 {
-    double p;  double y;  int fnegative = 0;
+    double p;  double y;
 
     if (x < 0)
-        x = -x, fnegative = 1, fUpper = !fUpper;
+        x = -x, fUpper = !fUpper;
     else if (x == 0)
         return 0.5;
 

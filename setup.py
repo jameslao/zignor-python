@@ -7,7 +7,7 @@ _zignor = Extension('_zignor',
                     extra_compile_args=['-O3'])
 
 setup(name='zignor',
-      version='0.1',
+      version='0.11',
       description='Zignor RNG on Python',
       author='James Lao',
       author_email='james@jlao.net',

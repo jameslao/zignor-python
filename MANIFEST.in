@@ -1,0 +1,6 @@
+include zignor/*.c
+include zignor/*.py
+include zignor/*.h
+include README.md
+include LICENSE.txt
+include setup.*

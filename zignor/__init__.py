@@ -1,3 +1,3 @@
-__all__ = ['randn']
+__all__ = ['randn', 'zignor', 'rnor']
 
-from .zignor import randn
+from .zignor import randn, zignor, rnor

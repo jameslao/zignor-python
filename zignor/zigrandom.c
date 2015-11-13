@@ -18,7 +18,7 @@
 
 #include "zigrandom.h"
 
-/*---------------------------- GetInitialSeeds -----------------------------*/
+ /*---------------------------- GetInitialSeeds -----------------------------*/
 void GetInitialSeeds(unsigned int auiSeed[], int cSeed,
 	unsigned int uiSeed, unsigned int uiMin)
 {
@@ -30,9 +30,9 @@ void GetInitialSeeds(unsigned int auiSeed[], int cSeed,
 		s = 1664525 * s + 1013904223;
 		if (s <= uiMin)
 			continue;
-        auiSeed[i] = s;
+		auiSeed[i] = s;
 		++i;
-    }
+	}
 }
 /*-------------------------- END GetInitialSeeds ---------------------------*/
 
@@ -50,7 +50,7 @@ void RanSetSeed_MWC8222(int *piSeed, int cSeed)
 {
 	s_uiStateMWC = MWC_R - 1;
 	s_uiCarryMWC = MWC_C;
-	
+
 	if (cSeed == MWC_R)
 	{
 		int i;
@@ -72,7 +72,7 @@ unsigned int IRan_MWC8222(void)
 	t = MWC_A * s_auiStateMWC[s_uiStateMWC] + s_uiCarryMWC;
 	s_uiCarryMWC = (unsigned int)(t >> 32);
 	s_auiStateMWC[s_uiStateMWC] = (unsigned int)t;
-    return (unsigned int)t;
+	return (unsigned int)t;
 }
 double DRan_MWC8222(void)
 {
@@ -88,7 +88,7 @@ void VecIRan_MWC8222(unsigned int *auiRan, int cRan)
 {
 	UINT64 t;
 	unsigned int carry = s_uiCarryMWC, state = s_uiStateMWC;
-	
+
 	for (; cRan > 0; --cRan, ++auiRan)
 	{
 		state = (state + 1) & (MWC_R - 1);
@@ -103,7 +103,7 @@ void VecDRan_MWC8222(double *adRan, int cRan)
 {
 	UINT64 t;
 	unsigned int carry = s_uiCarryMWC, state = s_uiStateMWC;
-	
+
 	for (; cRan > 0; --cRan, ++adRan)
 	{
 		state = (state + 1) & (MWC_R - 1);
@@ -129,19 +129,19 @@ static RANSETSEEDFUN s_fnRanSetSeed = RanSetSeed_MWC8222;
 
 double  DRanU(void)
 {
-    return (*s_fnDRanu)();
+	return (*s_fnDRanu)();
 }
 unsigned int IRanU(void)
 {
-    return (*s_fnIRanu)();
+	return (*s_fnIRanu)();
 }
 void RanVecIntU(unsigned int *auiRan, int cRan)
 {
-    (*s_fnVecIRanu)(auiRan, cRan);
+	(*s_fnVecIRanu)(auiRan, cRan);
 }
 void RanVecU(double *adRan, int cRan)
 {
-    (*s_fnVecDRanu)(adRan, cRan);
+	(*s_fnVecDRanu)(adRan, cRan);
 }
 //void RanVecU(double *adRan, int cRan)
 //{
@@ -157,12 +157,12 @@ void RanVecU(double *adRan, int cRan)
 //}
 void    RanSetSeed(int *piSeed, int cSeed)
 {
-   	s_cNormalInStore = 0;
+	s_cNormalInStore = 0;
 	(*s_fnRanSetSeed)(piSeed, cSeed);
 }
 void    RanSetRan(const char *sRan)
 {
-   	s_cNormalInStore = 0;
+	s_cNormalInStore = 0;
 	if (strcmp(sRan, "MWC8222") == 0)
 	{
 		s_fnDRanu = DRan_MWC8222;
@@ -180,11 +180,11 @@ void    RanSetRan(const char *sRan)
 }
 static unsigned int IRanUfromDRanU(void)
 {
-    return (unsigned int)(UINT_MAX * (*s_fnDRanu)());
+	return (unsigned int)(UINT_MAX * (*s_fnDRanu)());
 }
 static double DRanUfromIRanU(void)
 {
-    return RANDBL_32new( (*s_fnIRanu)() );
+	return RANDBL_32new((*s_fnIRanu)());
 }
 void    RanSetRanExt(DRANFUN DRanFun, IRANFUN IRanFun, IVECRANFUN IVecRanFun,
 	DVECRANFUN DVecRanFun, RANSETSEEDFUN RanSetSeedFun)
@@ -212,17 +212,17 @@ static double s_dNormalInStore;
 
 double  DRanNormalPolar(void)                         /* Polar Marsaglia */
 {
-    double d, u1;
+	double d, u1;
 
-    if (s_cNormalInStore)
-        u1 = s_dNormalInStore, s_cNormalInStore = 0;
-    else
-    {
-        POLARBLOCK(u1, s_dNormalInStore, d);
-        s_cNormalInStore = 1;
-    }
+	if (s_cNormalInStore)
+		u1 = s_dNormalInStore, s_cNormalInStore = 0;
+	else
+	{
+		POLARBLOCK(u1, s_dNormalInStore, d);
+		s_cNormalInStore = 1;
+	}
 
-return u1;
+	return u1;
 }
 
 #define FPOLARBLOCK(u1, u2, d)	              \
@@ -237,57 +237,57 @@ return u1;
 static float s_fNormalInStore;
 double  FRanNormalPolar(void)                         /* Polar Marsaglia */
 {
-    float d, u1;
+	float d, u1;
 
-    if (s_cNormalInStore)
-        u1 = s_fNormalInStore, s_cNormalInStore = 0;
-    else
-    {
-        POLARBLOCK(u1, s_fNormalInStore, d);
-        s_cNormalInStore = 1;
-    }
+	if (s_cNormalInStore)
+		u1 = s_fNormalInStore, s_cNormalInStore = 0;
+	else
+	{
+		POLARBLOCK(u1, s_fNormalInStore, d);
+		s_cNormalInStore = 1;
+	}
 
-return (double)u1;
+	return (double)u1;
 }
 /*--------------------------- END Polar normal RNG -------------------------*/
 
 /*------------------------------ DRanQuanNormal -----------------------------*/
 static double dProbN(double x, int fUpper)
 {
-    double p;  double y;
+	double p;  double y;
 
-    if (x < 0)
-        x = -x, fUpper = !fUpper;
-    else if (x == 0)
-        return 0.5;
+	if (x < 0)
+		x = -x, fUpper = !fUpper;
+	else if (x == 0)
+		return 0.5;
 
-    if ( !(x <= 8 || (fUpper && x <= 37) ) )
-        return (fUpper) ? 0 : 1;
+	if (!(x <= 8 || (fUpper && x <= 37)))
+		return (fUpper) ? 0 : 1;
 
-    y = x * x / 2;
+	y = x * x / 2;
 
-    if (x <= 1.28)
-    {
-        p = 0.5 - x * (0.398942280444 - 0.399903438504 * y /
-            (y + 5.75885480458 - 29.8213557808 /
-            (y + 2.62433121679 + 48.6959930692 /
-            (y + 5.92885724438))));
-    }
-    else
-    {
-        p = 0.398942280385 * exp(-y) /
-            (x - 3.8052e-8 + 1.00000615302 /
-            (x + 3.98064794e-4 + 1.98615381364 /
-            (x - 0.151679116635 + 5.29330324926 /
-            (x + 4.8385912808 - 15.1508972451 /
-            (x + 0.742380924027 + 30.789933034 /
-            (x + 3.99019417011))))));
-    }
-    return (fUpper) ? p : 1 - p;
+	if (x <= 1.28)
+	{
+		p = 0.5 - x * (0.398942280444 - 0.399903438504 * y /
+			(y + 5.75885480458 - 29.8213557808 /
+				(y + 2.62433121679 + 48.6959930692 /
+					(y + 5.92885724438))));
+	}
+	else
+	{
+		p = 0.398942280385 * exp(-y) /
+			(x - 3.8052e-8 + 1.00000615302 /
+				(x + 3.98064794e-4 + 1.98615381364 /
+					(x - 0.151679116635 + 5.29330324926 /
+						(x + 4.8385912808 - 15.1508972451 /
+							(x + 0.742380924027 + 30.789933034 /
+								(x + 3.99019417011))))));
+	}
+	return (fUpper) ? p : 1 - p;
 }
 double  DProbNormal(double x)
 {
-    return dProbN(x, 0);
+	return dProbN(x, 0);
 }
 double  DRanQuanNormal(void)
 {

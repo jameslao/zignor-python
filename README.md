@@ -5,8 +5,15 @@ With code and method from Doornik, J.A. (2005), "An Improved Ziggurat Method to 
 
 `NumPy` installation is required. Python 3 compatible.
 
-If you are running Windows and don't have MSVC compiler installed, a pre-built distribution on Python 3.5 is given in `dist` folder.
+To install, run 
 
 `python setup.py install`
+
+or if you use `pip`, run
+
+`pip install zignor`
+
+If you are running Windows and don't have MSVC compiler installed, a pre-built distribution on Python 3.5 is given in `dist` folder.
+
 
 

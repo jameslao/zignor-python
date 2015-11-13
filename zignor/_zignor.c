@@ -22,7 +22,7 @@ static PyObject* _zignor_randn(PyObject *self, PyObject *args)
     mat    = (double *) py_mat->data;
     RanNormalSetSeedZig32(&piseed, cseed);
     for( i=0; i<n; ++i )
-        mat[i] = (double) DRanNormalZig32();
+        mat[i] = (double) DRanNormalZig32Vec();
   
     return PyArray_Return(py_mat);
 }

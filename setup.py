@@ -8,9 +8,11 @@ _zignor = Extension('_zignor',
 
 setup(name='zignor',
       version='0.1',
-      description='zignor RNG',
+      description='Zignor RNG on Python',
       author='James Lao',
       author_email='james@jlao.net',
+      url='https://github.com/jameslao/zignor-python'
+      download_url='https://github.com/jameslao/zignor-python/tarball/0.1'
       packages=['zignor'],
       package_dir={'zignor': 'zignor'},
       ext_package='zignor',

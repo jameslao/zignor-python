@@ -70,7 +70,7 @@ static const double ytab[128] = {
 
 /* tabulated values for 2^24 times x[i]/x[i+1],
  * used to accept for U*x[i+1]<=x[i] without any floating point operations */
-static const unsigned long ktab[128] = {
+static const unsigned int ktab[128] = {
     0, 12590644, 14272653, 14988939,
     15384584, 15635009, 15807561, 15933577,
     16029594, 16105155, 16166147, 16216399,
@@ -143,14 +143,14 @@ static const double wtab[128] = {
 
 /* Implementation of xorshift128 as fast rng */
 
-unsigned long state_x, state_y, state_z, state_w;
+unsigned int state_x, state_y, state_z, state_w;
 
-void xorshift128_set(unsigned long x, unsigned long y, unsigned long z, unsigned long w) {
+void xorshift128_set(unsigned int x, unsigned int y, unsigned int z, unsigned int w) {
     state_x = x; state_y = y; state_z = z; state_w = w;
 }
 
-unsigned long xorshift128(void) {
-    unsigned long state_t = state_x ^ (state_x << 11);
+unsigned int xorshift128(void) {
+    unsigned int state_t = state_x ^ (state_x << 11);
     state_x = state_y; state_y = state_z; state_z = state_w;
     return state_w = state_w ^ (state_w >> 19) ^ state_t ^ (state_t >> 8);
 }
@@ -160,7 +160,7 @@ double xorshift128_double(void) {
 }
 
 double gsl_ran_gaussian_ziggurat () {
-    unsigned long  U, sign, i, j;
+    unsigned int  U, sign, i, j;
     double  x, y;
 
     while (1) {

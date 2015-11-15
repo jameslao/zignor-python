@@ -7,8 +7,8 @@ _zignor = Extension('_zignor',
                     extra_compile_args=['-O3'])
 
 setup(name='zignor',
-      version='0.15',
-      description='Zignor RNG on Python',
+      version='0.16',
+      description='Ziggurat Fast Normal Distribution RNG',
       author='James Lao',
       author_email='james@jlao.net',
       url='https://github.com/jameslao/zignor-python',

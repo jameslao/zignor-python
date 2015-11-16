@@ -5,7 +5,13 @@ from . import _zignor
 
 def rnor(*dims):
     if dims:
-        return np.reshape(_zignor.randn(np.prod(dims), int(np.random.randint(1e8)), int(np.random.randint(1e8))), dims)
+        return np.reshape(_zignor.rnor(np.prod(dims), int(np.random.randint(1e8)), int(np.random.randint(1e8))), dims)
+    else:
+        return None
+
+def rexp(*dims):
+    if dims:
+        return np.reshape(_zignor.rexp(np.prod(dims), int(np.random.randint(1e8)), int(np.random.randint(1e8))), dims)
     else:
         return None
 

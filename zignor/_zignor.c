@@ -5,11 +5,9 @@
 
 #include "zigrandom.c"
 #include "zignor.c"
+#include "rnorrexp.c"
 
-#include "gauss.c"
-
-
-static PyObject* _gauss_randn(PyObject *self, PyObject *args)
+static PyObject* _rnor_randn(PyObject *self, PyObject *args)
 {
     PyArrayObject *py_mat;
     double *mat;
@@ -23,12 +21,34 @@ static PyObject* _gauss_randn(PyObject *self, PyObject *args)
     py_mat = (PyArrayObject *)PyArray_SimpleNew(1, dims, NPY_DOUBLE);
     mat = (double *)py_mat->data;
 
-    xorshift128_set(piseed, cseed, 0, 0);
+    zigset(cseed);
     for (i = 0; i < n; ++i)
-        mat[i] = (double)gsl_ran_gaussian_ziggurat();
+      mat[i] = RNOR;
 
     return PyArray_Return(py_mat);
 }
+
+static PyObject* _rexp_randn(PyObject *self, PyObject *args)
+{
+    PyArrayObject *py_mat;
+    double *mat;
+    npy_intp dims[1] = { 0 };
+    int n, i;
+    int piseed, cseed;
+    if (!PyArg_ParseTuple(args, "iii", &n, &piseed, &cseed))
+        return NULL;
+
+    dims[0] = n;
+    py_mat = (PyArrayObject *)PyArray_SimpleNew(1, dims, NPY_DOUBLE);
+    mat = (double *)py_mat->data;
+
+    zigset(cseed);
+    for (i = 0; i < n; ++i)
+      mat[i] = REXP;
+
+    return PyArray_Return(py_mat);
+}
+
 
 static PyObject* _zignor_randn(PyObject *self, PyObject *args)
 {
@@ -53,10 +73,10 @@ static PyObject* _zignor_randn(PyObject *self, PyObject *args)
 static PyMethodDef _zignor_methods[] =
 {
     {
-        "randn", _gauss_randn, METH_VARARGS
+        "rnor", _rnor_randn, METH_VARARGS
     },
     {
-        "rnor", _gauss_randn, METH_VARARGS
+        "rexp", _rexp_randn, METH_VARARGS
     },
     {
         "zignor", _zignor_randn, METH_VARARGS

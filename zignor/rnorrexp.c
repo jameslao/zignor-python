@@ -19,7 +19,7 @@ static unsigned int jz, jsr = 123456789;
 #define UNI (.5 + (signed) SHR3 * .2328306e-9)
 #define IUNI SHR3
 
-static long hz;
+static int hz;
 static unsigned int iz, kn[128], ke[256];
 static double wn[128], fn[128], we[256], fe[256];
 

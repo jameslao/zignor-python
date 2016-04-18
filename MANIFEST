@@ -5,7 +5,7 @@ setup.cfg
 setup.py
 zignor\__init__.py
 zignor\_zignor.c
-zignor\gauss.c
+zignor\rnorrexp.c
 zignor\zignor.c
 zignor\zignor.h
 zignor\zignor.py
